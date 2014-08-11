@@ -63,6 +63,14 @@ proto.createdCallback = function() {
 
   // Font fit must be run only once the element is styled
   this.addEventListener('styled', this.runFontFit.bind(this));
+
+  // Listen for lazy loaded DOM to register new headers.
+  window.addEventListener('lazyload', function(evt) {
+    var headers = evt.detail.querySelectorAll('gaia-header > h1,h2,h3,h4');
+    for (var i = 0; i < headers.length; i++) {
+      this.reformatHeading(headers[i]);
+    }
+  }.bind(this));
 };
 
 /**
